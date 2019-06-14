@@ -7,6 +7,9 @@ SC_MODULE(sliders) {
 	sc_in< sc_int<8> >		inp; //8 pinow na wejsciu
 	sc_out< sc_int<8> >	outp;
 
+	//do komunikacji z procesorem
+	sc_in< sc_int<8> >		in_proc; 
+	sc_out< sc_int<8> >		out_proc;
 
 	//handshaking
 	sc_in<bool> inp_vld;

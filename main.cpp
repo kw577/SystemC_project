@@ -1,7 +1,7 @@
 #include <systemc.h>
 #include "sliders.h"
 #include "testbench.h"
-
+#include "processor.h"
 
 
 SC_MODULE(SYSTEM) {
@@ -9,8 +9,9 @@ SC_MODULE(SYSTEM) {
 	//instacje modulow
 	testbench *tb0;
 	sliders* sliders0;
+	processor* processor1;
 
-	//deklaracje sygnalow
+	//deklaracje sygnalow miedzy tb0 i sliders
 	sc_signal<bool> rst_sig;
 
 	sc_signal< sc_int<8> >		inp_sig;
@@ -21,6 +22,13 @@ SC_MODULE(SYSTEM) {
 	sc_signal<bool>				outp_sig_vld;  //handshaking signal
 	sc_signal<bool>				outp_sig_rdy;  //handshaking signal
 
+
+	//deklaracje sygnalow miedzy processor1 i sliders
+	sc_signal<bool> rst_proc_sliders;
+	sc_signal< sc_int<8> >      in_proc_sliders;
+	sc_signal< sc_int<8> >      out_proc_sliders;
+	
+	
 	//ZEGAR SYSTEMOWY
 	sc_clock clk_sig;
 
@@ -58,6 +66,22 @@ SC_MODULE(SYSTEM) {
 		sliders0->outp(outp_sig);
 		sliders0->outp_vld(outp_sig_vld); //handshaking signal
 		sliders0->outp_rdy(outp_sig_rdy); //handshaking signal
+		
+		sliders0->in_proc(out_proc_sliders); // pol z procesorem
+		sliders0->out_proc(in_proc_sliders); // pol z procesorem
+
+		//////////////////////////////////////
+		//deklaracja instancji modulu
+		processor1 = new processor("processor1");
+		
+		//polaczenie modulu z zegarem
+		processor1->clk(clk_sig);
+
+		//polaczenie modulu z sygnalami
+		processor1->rst(rst_sig);
+		processor1->in_sld(in_proc_sliders);
+		processor1->out_sld(out_proc_sliders);
+
 
 	}
 
@@ -65,7 +89,7 @@ SC_MODULE(SYSTEM) {
 	~SYSTEM() {
 		delete tb0;
 		delete sliders0;
-
+		delete processor1;
 	}
 
 
