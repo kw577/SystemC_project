@@ -7,6 +7,7 @@ void sliders::sliders_main(void)
 	//Initialize handshake
 	inp_rdy.write(0);
 	outp_vld.write(0);
+	in_sp_rdy.write(0);
 
 	//Resetowanie wyjscia
 	outp.write(0);
@@ -29,6 +30,16 @@ void sliders::sliders_main(void)
 		//handshake - na razie modul ie moze przyjac nowych danych
 		inp_rdy.write(0);
 				
+				//wyslanie danych do procesora
+				////przekazanie informacji ze modul ma nowe dane do wyslania
+				in_sp_rdy.write(1);
+				in_sp.write(temp);
+
+				do {
+					wait(); //czeka na zegar
+				} while (!in_sp_vld.read());
+
+				in_sp_rdy.write(0);
 
 		//przekazanie informacji ze modul ma nowe dane do wyslania
 		outp_vld.write(1);

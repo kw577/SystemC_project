@@ -24,9 +24,9 @@ SC_MODULE(SYSTEM) {
 
 
 	//deklaracje sygnalow miedzy processor1 i sliders
-	sc_signal<bool> rst_proc_sliders;
-	sc_signal< sc_int<8> >      in_proc_sliders;
-	sc_signal< sc_int<8> >      out_proc_sliders;
+	sc_signal< sc_int<8> >      in_sp_signal;
+	sc_signal<bool>				in_sp_rdy_signal;  //handshaking signal
+	sc_signal<bool>				in_sp_vld_signal;  //handshaking signal
 	
 	
 	//ZEGAR SYSTEMOWY
@@ -67,8 +67,10 @@ SC_MODULE(SYSTEM) {
 		sliders0->outp_vld(outp_sig_vld); //handshaking signal
 		sliders0->outp_rdy(outp_sig_rdy); //handshaking signal
 		
-		sliders0->in_proc(out_proc_sliders); // pol z procesorem
-		sliders0->out_proc(in_proc_sliders); // pol z procesorem
+		sliders0->in_sp(in_sp_signal); // pol z procesorem
+		
+		sliders0->in_sp_rdy(in_sp_rdy_signal); //handshaking signal
+		sliders0->in_sp_vld(in_sp_vld_signal); //handshaking signal
 
 		//////////////////////////////////////
 		//deklaracja instancji modulu
@@ -79,9 +81,10 @@ SC_MODULE(SYSTEM) {
 
 		//polaczenie modulu z sygnalami
 		processor1->rst(rst_sig);
-		processor1->in_sld(in_proc_sliders);
-		processor1->out_sld(out_proc_sliders);
-
+		processor1->in_sp(in_sp_signal);
+	
+		processor1->in_sp_rdy(in_sp_rdy_signal); //handshaking signal
+		processor1->in_sp_vld(in_sp_vld_signal); //handshaking signal
 
 	}
 

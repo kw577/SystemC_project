@@ -8,14 +8,17 @@ SC_MODULE(sliders) {
 	sc_out< sc_int<8> >	outp;
 
 	//do komunikacji z procesorem
-	sc_in< sc_int<8> >		in_proc; 
-	sc_out< sc_int<8> >		out_proc;
+	sc_out< sc_int<8> >		in_sp; 
 
 	//handshaking
 	sc_in<bool> inp_vld;
 	sc_out<bool> inp_rdy;
 	sc_out<bool> outp_vld;
 	sc_in<bool> outp_rdy;
+
+	//handshaking with processor1
+	sc_in<bool> in_sp_vld;
+	sc_out<bool> in_sp_rdy;
 
 
 
