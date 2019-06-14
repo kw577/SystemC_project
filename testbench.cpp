@@ -1,30 +1,30 @@
-#include "tb.h"
+#include "testbench.h"
 
-//funkcja wysylajaca dane do modulu fir
-void tb::source() {
+//funkcja wysylajaca dane do modulu sliders
+void testbench::source() {
 
 	//resetowanie wejsc i wyjsc
 	inp.write(0);
 	inp_vld.write(0);
 	rst.write(1);
 	wait(); //czeka do nastepnego cyklu zegara
-	rst.write(0); //do resetu nalezy najpierw wyslac 1 potem 0 - dopiero wtedy sygnal reset jest zakonczony
+	rst.write(0); //reset done
 	wait();
 
-	sc_int<16> tmp;
+	sc_int<8> tmp;
 
-	//wyslanie przykladowego sygnalow do modulu fir
-	for (int i = 0; i < 64; i++)
+	//wyslanie kolejnych identyfikatorow programu
+	for (int i = 0; i <= 4; i++)
 	{
-		//przyjete przykladowe wartosci do wyslania do modulu fir
-		if (i > 23 && i < 29)
-			tmp = 256;
-		else
-			tmp = 0;
+		
+		//numer programu pralki
+		tmp = 2*i;
+		if(tmp == 0) tmp=1;
+
 
 		inp_vld.write(1);
 
-		//zapis sygnalu do wyjscia - polaczonego sygnalem z wejsciem modulu fir o nazwie inp
+		//zapis sygnalu do wyjscia 
 		inp.write(tmp); 
 
 		
@@ -38,17 +38,17 @@ void tb::source() {
 	}
 
 	//zapobieganie zawieszania sie procesu symulacji
-	wait(10000);
-	printf("Hanging simulation stopped by TB source thread.\n");
+	wait(5000);
+	printf("Hanging simulation stopped by testbench source thread.\n");
 	sc_stop();
 
 }
 
 
-// funkjca pobierajaca wartosci zwrotne z modulu fir
-void tb::sink() {
+// funkjca pobierajaca wartosci zwrotne z modulu sliders
+void testbench::sink() {
 
-	sc_int<16> indata;
+	sc_int<8> indata;
 
 	///////////////
 	//Zapisanie danych symulacji do pliku
@@ -67,7 +67,7 @@ void tb::sink() {
 	outp_rdy.write(0);
 
 
-	//funckja source wysyla 64 sygnaly zatem funkcja sink powinna odebrac rowniez 64 sygnaly
+	//odbior tylu sygnalow ile wyslala funkcja source
 	for (int i = 0; i < 64; i++) {
 
 		outp_rdy.write(1);
@@ -75,15 +75,15 @@ void tb::sink() {
 			wait();
 		} while (!outp_vld.read());
 
-		//czyta odpowiedz od modulu fir
+		//czyta odpowiedz od modulu sliders
 		indata = outp.read();
 
 		outp_rdy.write(0);
 		//wait();
 
 		//zapisanie wynikow
-		fprintf(outfp, "%d\n", (int)indata);
-		cout << i << " : \t" << (int)indata << endl;
+		fprintf(outfp, "sliders: uruchomiono program id: %d\n", (int)indata);
+		cout << "sliders: uruchomiono program id: " << (int)indata << endl;
 
 
 	}

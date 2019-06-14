@@ -1,11 +1,11 @@
 #include <systemc.h>
 
 
-SC_MODULE(fir) {
+SC_MODULE(sliders) {
 	sc_in<bool>		clk;
 	sc_in<bool>		rst;
-	sc_in< sc_int<16> >		inp; //16 pinow na wejsciu
-	sc_out< sc_int<16> >	outp;
+	sc_in< sc_int<8> >		inp; //8 pinow na wejsciu
+	sc_out< sc_int<8> >	outp;
 
 
 	//handshaking
@@ -17,14 +17,14 @@ SC_MODULE(fir) {
 
 
 	//deklaracja funkcji
-	void fir_main();
+	void sliders_main();
 
 
 	//konstruktor
-	SC_CTOR(fir) {
+	SC_CTOR(sliders) {
 
 		//watek ponizej moze byc wykonywany wielokrotnie, moze zawierac petle
-		SC_CTHREAD(fir_main, clk.pos());
+		SC_CTHREAD(sliders_main, clk.pos());
 		reset_signal_is(rst, true);
 
 	}
