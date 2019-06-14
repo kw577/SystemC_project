@@ -9,7 +9,7 @@ void processor::processor_main(void)
 
 	//Resetowanie wyjscia
 	in_sp_vld.write(0);
-
+	in_dp_rdy.write(0);
 
 
 	wait(); //czeka na sygnal zegara
@@ -38,6 +38,16 @@ void processor::processor_main(void)
 		//na razie modul nie moze przyjac nowych danych
 		in_sp_vld.write(0);
 
+			//przekazanie info ze modul ma nowe dane do wyslania
+			in_dp_rdy.write(1);
+
+			in_dp.write(temp);
+
+			do{
+				wait();
+			}while(!in_dp_vld.read());
+
+			in_dp_rdy.write(0);
 		//out_sld.write(temp);
 		wait(); //czeka na zegar
 

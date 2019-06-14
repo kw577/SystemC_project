@@ -2,7 +2,7 @@
 #include "sliders.h"
 #include "testbench.h"
 #include "processor.h"
-
+#include "display.h"
 
 SC_MODULE(SYSTEM) {
 
@@ -10,6 +10,7 @@ SC_MODULE(SYSTEM) {
 	testbench *tb0;
 	sliders* sliders0;
 	processor* processor1;
+	display* display1;
 
 	//deklaracje sygnalow miedzy tb0 i sliders
 	sc_signal<bool> rst_sig;
@@ -28,7 +29,11 @@ SC_MODULE(SYSTEM) {
 	sc_signal<bool>				in_sp_rdy_signal;  //handshaking signal
 	sc_signal<bool>				in_sp_vld_signal;  //handshaking signal
 	
-	
+	//deklaracje sygnalow miedzy processor1 i display
+	sc_signal< sc_int<8> >      in_dp_signal;
+	sc_signal<bool>				in_dp_rdy_signal;  //handshaking signal
+	sc_signal<bool>				in_dp_vld_signal;  //handshaking signal
+
 	//ZEGAR SYSTEMOWY
 	sc_clock clk_sig;
 
@@ -86,6 +91,25 @@ SC_MODULE(SYSTEM) {
 		processor1->in_sp_rdy(in_sp_rdy_signal); //handshaking signal
 		processor1->in_sp_vld(in_sp_vld_signal); //handshaking signal
 
+		processor1->in_dp(in_dp_signal);
+	
+		processor1->in_dp_rdy(in_dp_rdy_signal); //handshaking signal
+		processor1->in_dp_vld(in_dp_vld_signal); //handshaking signal
+
+		//////////////////////////////////////
+		//deklaracja instancji modulu
+		display1 = new display("display1");
+		
+		//polaczenie modulu z zegarem
+		display1->clk(clk_sig);
+
+		//polaczenie modulu z sygnalami
+		display1->rst(rst_sig);
+		display1->in_dp(in_dp_signal);
+	
+		display1->in_dp_rdy(in_dp_rdy_signal); //handshaking signal
+		display1->in_dp_vld(in_dp_vld_signal); //handshaking signal
+
 	}
 
 	//Destruktor - nie jest wymagany
@@ -93,6 +117,7 @@ SC_MODULE(SYSTEM) {
 		delete tb0;
 		delete sliders0;
 		delete processor1;
+		delete display1;
 	}
 
 
