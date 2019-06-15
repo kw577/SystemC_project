@@ -11,9 +11,13 @@ SC_MODULE(processorSt) {
 	sc_in<bool> in_pp_rdy;
 
 
+	//wysylanie danych do processor1
+	sc_out< sc_int<8> >		out_pp; 
+	sc_out<bool> out_pp_vld;
+	sc_in<bool> out_pp_rdy;
+
 	//do komunikacji z pralka
 	sc_out< sc_int<8> >		in_wp; 
-	//handshaking with processor1
 	sc_in<bool> in_wp_vld;
 	sc_out<bool> in_wp_rdy;
 

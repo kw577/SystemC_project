@@ -36,6 +36,14 @@ SC_MODULE(processor) {
 	sc_out<bool> in_dp_rdy;
 
 
+
+	//odbieranie danych od processor1
+	sc_in< sc_int<8> >		out_pp; 
+	sc_in<bool> out_pp_vld;
+	sc_out<bool> out_pp_rdy;
+
+
+
 	//deklaracja funkcji
 	void processor_main();
 

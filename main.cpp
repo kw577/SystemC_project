@@ -45,6 +45,11 @@ SC_MODULE(SYSTEM) {
 	sc_signal<bool>				in_pp_rdy_signal;  //handshaking signal
 	sc_signal<bool>				in_pp_vld_signal;  //handshaking signal
 
+
+	sc_signal< sc_int<8> >      out_pp_signal;
+	sc_signal<bool>				out_pp_rdy_signal;  //handshaking signal
+	sc_signal<bool>				out_pp_vld_signal;  //handshaking signal
+
 	//deklaracje sygnalow miedzy processor2 i washer
 	sc_signal< sc_int<8> >      in_wp_signal;
 	sc_signal<bool>				in_wp_rdy_signal;  //handshaking signal
@@ -120,6 +125,11 @@ SC_MODULE(SYSTEM) {
 		processor1->in_pp_rdy(in_pp_rdy_signal); //handshaking signal
 		processor1->in_pp_vld(in_pp_vld_signal); //handshaking signal
 
+		//otrzymywanie danych od processor2
+		processor1->out_pp(out_pp_signal);
+		processor1->out_pp_rdy(out_pp_rdy_signal); //handshaking signal
+		processor1->out_pp_vld(out_pp_vld_signal); //handshaking signal
+
 		//////////////////////////////////////
 		//deklaracja instancji modulu
 		display1 = new display("display1");
@@ -155,6 +165,11 @@ SC_MODULE(SYSTEM) {
 		processor2->in_wp_vld(in_wp_vld_signal); //handshaking signal
 
 	
+		//wysylanie danych do processor1
+		processor2->out_pp(out_pp_signal);
+		processor2->out_pp_rdy(out_pp_rdy_signal); //handshaking signal
+		processor2->out_pp_vld(out_pp_vld_signal); //handshaking signal
+
 		//////////////////////////////////////
 		//deklaracja instancji modulu
 		washer1 = new washer("washer1");

@@ -5,13 +5,14 @@
 void processor::processor_main(void)
 {
 	sc_int<8> temp;
-
+	sc_int<8> temp2;
 
 	//Resetowanie wyjscia
 	in_sp_vld.write(0);
 	in_dp_rdy.write(0);
 	in_pp_rdy.write(0);
 	outp_vld.write(0);
+	out_pp_rdy.write(0);
 	outp.write(0);
 
 	wait(); //czeka na sygnal zegara
@@ -62,6 +63,20 @@ void processor::processor_main(void)
 			}while(!in_pp_vld.read());
 
 			in_pp_rdy.write(0);
+
+
+			//odbior danych od processor2
+			out_pp_rdy.write(1);
+
+			do{
+				wait();
+			}while(!out_pp_vld.read());
+
+			temp2 = out_pp.read();
+
+			out_pp_rdy.write(0);
+
+			cout << "\t\t\t\tProcessor1: ---KONIEC PROGRAMU PRANIA---" << endl;
 
 		//przekazanie informacji ze modul ma nowe dane do wyslania
 		outp_vld.write(1);

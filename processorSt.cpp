@@ -19,6 +19,10 @@ void processorSt::processorSt_main(void)
 
 	in_pp_vld.write(0);
 	in_wp_rdy.write(0);
+	out_pp_vld.write(0);
+
+	out_pp.write(0);
+
 	//Resetowanie wyjscia
 	//out_sld.write(0);
 	wait(); //czeka na sygnal zegara
@@ -42,6 +46,16 @@ void processorSt::processorSt_main(void)
 
 		
 		controlWashing(temp);
+
+		//Przekazanie info ze procesor ma owe dane do wyslania
+		out_pp_vld.write(1);
+		out_pp.write(temp);
+
+		do{
+			wait();
+		}while(out_pp_rdy.read());
+
+		out_pp_vld.write(0);
 
 	}
 
