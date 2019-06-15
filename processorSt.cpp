@@ -43,7 +43,7 @@ void processorSt::processorSt_main(void)
 		cout << "\t\t\tprocessor2: Program id: " << (int)temp << endl;
 
 		in_pp_vld.write(0);
-
+		wait(50000);
 		
 		controlWashing(temp);
 

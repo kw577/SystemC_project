@@ -27,11 +27,11 @@ void sliders::sliders_main(void)
 		//odczytywanie wartosci z portu in
 		temp = inp.read();
 
-		cout << "sliders: Program id: " << (int)temp << endl;
+		cout << "\n\nsliders: Program id: " << (int)temp << endl;
 
 		//handshake - na razie modul ie moze przyjac nowych danych
 		inp_rdy.write(0);
-				
+		wait(50000);		
 				//wyslanie danych do procesora
 				////przekazanie informacji ze modul ma nowe dane do wyslania
 				in_sp_rdy.write(1);

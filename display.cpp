@@ -28,9 +28,34 @@ void display::display_main(void)
 		//odczytanie wartosci z portu
 		temp = in_dp.read();
 
+		if(temp == 0 ){
+			cout << "\t\tDisplay: Program: ZRASZANIE" << endl;
+		}
+		else if(temp == 1 ){
+			cout << "\t\tDisplay: Program: WODA 1/3" << endl;
+		}
+		else if(temp == 2 ){
+			cout << "\t\tDisplay: Program: WODA 1/2" << endl;
+		}
+		else if(temp == 3 ){
+			cout << "\t\tDisplay: Program: WODA 3/4" << endl;
+		}
+		else if(temp == 4 ){
+			cout << "\t\tDisplay: Program: WODA 1/1" << endl;
+		}
+
+		else if(temp == 20){
+
+			cout << "\t\tDisplay: --END--" << endl;
+
+		} else{
+
+			cout << "\t\tDisplay: --ERROR--" << endl;
+		}
+
 		
 
-		cout << "\t\tdisplay: Program id: " << (int)temp << endl;
+		
 
 		in_dp_vld.write(0);
 	}

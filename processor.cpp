@@ -40,7 +40,7 @@ void processor::processor_main(void)
 
 		//na razie modul nie moze przyjac nowych danych
 		in_sp_vld.write(0);
-
+		wait(50000);
 			//przekazanie info  do wyswietlacza ze modul ma nowe dane do wyslania
 			in_dp_rdy.write(1);
 
@@ -77,6 +77,22 @@ void processor::processor_main(void)
 			out_pp_rdy.write(0);
 
 			cout << "\t\t\t\tProcessor1: ---KONIEC PROGRAMU PRANIA---" << endl;
+			wait(50000);
+
+
+			//przekazanie info  do wyswietlacza ze modul ma nowe dane do wyslania
+			in_dp_rdy.write(1);
+
+			in_dp.write(20);//20 to sygnal zakonczenia prania
+
+			do{
+				wait();
+			}while(!in_dp_vld.read());
+
+			in_dp_rdy.write(0);
+
+
+
 
 		//przekazanie informacji ze modul ma nowe dane do wyslania
 		outp_vld.write(1);
