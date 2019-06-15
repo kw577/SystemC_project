@@ -3,8 +3,7 @@
 
 SC_MODULE(processorSt) {
 	sc_in<bool>		clk;
-	sc_in<bool>		rst
-		;
+	sc_in<bool>		rst;
 	//do komunikacji z procesorem1
 	sc_in< sc_int<8> >		in_pp; 
 	//handshaking with processor1
@@ -20,15 +19,20 @@ SC_MODULE(processorSt) {
 
 
 
+	//PRZECHOWUJE PROGRAMY PRANIA
+	static int programs[][11];
+
+
 	//deklaracja funkcji
 	void processorSt_main();
-
+	void controlWashing(int prog);
 
 	//konstruktor
 	SC_CTOR(processorSt) {
 
 		SC_CTHREAD(processorSt_main, clk.pos());
 		reset_signal_is(rst, true);
+	
 
 	}
 

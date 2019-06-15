@@ -7,6 +7,7 @@
 #include "washer.h"
 
 
+
 SC_MODULE(SYSTEM) {
 
 	//instacje modulow
@@ -153,7 +154,7 @@ SC_MODULE(SYSTEM) {
 		processor2->in_wp_rdy(in_wp_rdy_signal); //handshaking signal
 		processor2->in_wp_vld(in_wp_vld_signal); //handshaking signal
 
-
+	
 		//////////////////////////////////////
 		//deklaracja instancji modulu
 		washer1 = new washer("washer1");
@@ -167,6 +168,11 @@ SC_MODULE(SYSTEM) {
 	
 		washer1->in_wp_rdy(in_wp_rdy_signal); //handshaking signal
 		washer1->in_wp_vld(in_wp_vld_signal); //handshaking signal
+
+
+
+		
+
 	}
 
 	//Destruktor - nie jest wymagany
@@ -188,7 +194,7 @@ int sc_main(int argc, char* argv[]) {
 
 	//deklaracja instancji modulu SYSTEM
 	top = new SYSTEM("top");
-	
+
 	//rozpoczecie symulacji
 	sc_start();
 

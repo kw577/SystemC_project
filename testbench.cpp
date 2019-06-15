@@ -18,8 +18,8 @@ void testbench::source() {
 	{
 		
 		//numer programu pralki
-		tmp = 2*i;
-		if(tmp == 0) tmp=1;
+		tmp = i;
+		//if(tmp == 0) tmp=1;
 
 
 		inp_vld.write(1);
@@ -27,7 +27,7 @@ void testbench::source() {
 		//zapis sygnalu do wyjscia 
 		inp.write(tmp); 
 
-		
+
 
 		//czeka na sygnal handshake
 		do {
@@ -38,8 +38,8 @@ void testbench::source() {
 	}
 
 	//zapobieganie zawieszania sie procesu symulacji
-	wait(5000);
-	printf("Hanging simulation stopped by testbench source thread.\n");
+	wait(100000);
+	//printf("Hanging simulation stopped by testbench source thread.\n");
 	sc_stop();
 
 }
@@ -79,6 +79,9 @@ void testbench::sink() {
 		indata = outp.read();
 
 		outp_rdy.write(0);
+		
+
+
 		//wait();
 
 		//zapisanie wynikow

@@ -4,6 +4,7 @@
 
 SC_MODULE(testbench)
 {
+
 	//deklaracja wejsc i wyjsc 
 	sc_in<bool>	clk; 
 	sc_out<bool> rst; 

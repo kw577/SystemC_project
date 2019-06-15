@@ -25,9 +25,37 @@ void washer::washer_main(void)
 		//odczytanie wartosci z portu
 		temp = in_wp.read();
 
-		cout << "\t\t\t\tpralka: Program id: " << (int)temp << endl;
-
+		//modul nie moze w tym momencie przyjac danych
 		in_wp_vld.write(0);
+
+		if((int)temp == 1){
+			cout << "\t\t\t\tPralka: Pranie wstepne" << endl;
+			//wait(1000);
+		}
+		else if((int)temp == 2){
+			cout << "\t\t\t\tPralka: Pranie" << endl;
+			//wait(1000);
+		}
+		else if((int)temp == 3){
+			cout << "\t\t\t\tPralka: Odplamianie" << endl;
+			//wait(1000);
+		}
+		else if((int)temp == 4){
+			cout << "\t\t\t\tPralka: Plukanie" << endl;
+			//wait(1000);
+		}
+		else if((int)temp == 5){
+			cout << "\t\t\t\tPralka: Dodatkowe plukanie" << endl;
+			//wait(1000);
+		}
+		else if((int)temp == 6){
+			cout << "\t\t\t\tPralka: Wirowanie" << endl;
+			//wait(1000);
+		}
+		else if((int)temp == 7){
+			cout << "\t\t\t\tPralka: ---KONIEC PRANIA---" << endl;
+			//wait(1000);
+		}
 
 	}
 
