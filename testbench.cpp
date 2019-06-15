@@ -3,6 +3,7 @@
 //funkcja wysylajaca dane do modulu sliders
 void testbench::source() {
 
+	completed = 0;
 	//resetowanie wejsc i wyjsc
 	inp.write(0);
 	inp_vld.write(0);
@@ -38,8 +39,16 @@ void testbench::source() {
 	}
 
 	//zapobieganie zawieszania sie procesu symulacji
-	wait(100000);
+	//wait(3000000);
 	//printf("Hanging simulation stopped by testbench source thread.\n");
+
+	//czeka na zakonczenie symulacji
+	do {
+		wait();
+	}while(completed==0);
+
+	cout << "ZAKONCZONO SYMULACJE" << endl;
+
 	sc_stop();
 
 }
@@ -68,7 +77,7 @@ void testbench::sink() {
 
 
 	//odbior tylu sygnalow ile wyslala funkcja source
-	for (int i = 0; i < 64; i++) {
+	for (int i = 0; i <= 4; i++) {
 
 		outp_rdy.write(1);
 		do {
@@ -92,6 +101,7 @@ void testbench::sink() {
 	}
 
 	//zakonczenie symulacji i uruchomienie destruktorow modulow
+	completed = 1;
 	fclose(outfp);
 	sc_stop();
 

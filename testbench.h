@@ -4,6 +4,8 @@
 
 SC_MODULE(testbench)
 {
+	//zmienna pomocnicza do sprawdzenia czy zakonczyla sie symulacja
+	int completed;
 
 	//deklaracja wejsc i wyjsc 
 	sc_in<bool>	clk; 

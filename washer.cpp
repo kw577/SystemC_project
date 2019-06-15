@@ -30,31 +30,31 @@ void washer::washer_main(void)
 
 		if((int)temp == 1){
 			cout << "\t\t\t\tPralka: Pranie wstepne" << endl;
-			//wait(1000);
+			wait(50000);
 		}
 		else if((int)temp == 2){
 			cout << "\t\t\t\tPralka: Pranie" << endl;
-			//wait(1000);
+			wait(50000);
 		}
 		else if((int)temp == 3){
 			cout << "\t\t\t\tPralka: Odplamianie" << endl;
-			//wait(1000);
+			wait(50000);
 		}
 		else if((int)temp == 4){
 			cout << "\t\t\t\tPralka: Plukanie" << endl;
-			//wait(1000);
+			wait(50000);
 		}
 		else if((int)temp == 5){
 			cout << "\t\t\t\tPralka: Dodatkowe plukanie" << endl;
-			//wait(1000);
+			wait(50000);
 		}
 		else if((int)temp == 6){
 			cout << "\t\t\t\tPralka: Wirowanie" << endl;
-			//wait(1000);
+			wait(50000);
 		}
 		else if((int)temp == 7){
 			cout << "\t\t\t\tPralka: ---KONIEC PRANIA---" << endl;
-			//wait(1000);
+			wait(50000);
 		}
 
 	}

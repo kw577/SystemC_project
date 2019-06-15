@@ -74,7 +74,7 @@ void processorSt::controlWashing(int prog){
 
 			do{
 				wait();
-			}while(!in_wp_rdy.read());
+			}while(!in_wp_vld.read());
 
 			in_wp_rdy.write(0);
 
