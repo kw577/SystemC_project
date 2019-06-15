@@ -84,9 +84,7 @@ SC_MODULE(SYSTEM) {
 		sliders0->inp(inp_sig);
 		sliders0->inp_vld(inp_sig_vld); //handshaking signal
 		sliders0->inp_rdy(inp_sig_rdy); //handshaking signal
-		sliders0->outp(outp_sig);
-		sliders0->outp_vld(outp_sig_vld); //handshaking signal
-		sliders0->outp_rdy(outp_sig_rdy); //handshaking signal
+
 		
 		sliders0->in_sp(in_sp_signal); // pol z procesorem
 		
@@ -104,6 +102,10 @@ SC_MODULE(SYSTEM) {
 		processor1->rst(rst_sig);
 		processor1->in_sp(in_sp_signal);
 	
+		processor1->outp(outp_sig);
+		processor1->outp_vld(outp_sig_vld); //handshaking signal
+		processor1->outp_rdy(outp_sig_rdy); //handshaking signal
+
 		processor1->in_sp_rdy(in_sp_rdy_signal); //handshaking signal
 		processor1->in_sp_vld(in_sp_vld_signal); //handshaking signal
 

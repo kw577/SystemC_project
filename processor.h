@@ -4,6 +4,16 @@
 SC_MODULE(processor) {
 	sc_in<bool>		clk;
 	sc_in<bool>		rst;
+	
+
+	sc_out< sc_int<8> >	outp;
+	sc_out<bool> outp_vld;
+	sc_in<bool> outp_rdy;
+
+
+	
+
+
 
 	//do komunikacji ze sliderami
 	sc_in< sc_int<8> >		in_sp; 

@@ -11,6 +11,8 @@ void processor::processor_main(void)
 	in_sp_vld.write(0);
 	in_dp_rdy.write(0);
 	in_pp_rdy.write(0);
+	outp_vld.write(0);
+	outp.write(0);
 
 	wait(); //czeka na sygnal zegara
 
@@ -61,7 +63,16 @@ void processor::processor_main(void)
 
 			in_pp_rdy.write(0);
 
+		//przekazanie informacji ze modul ma nowe dane do wyslania
+		outp_vld.write(1);
+		
+		outp.write(temp); // zapisanie wartosci na wyjscie
 
+		do {
+			wait(); //czeka na zegar
+		} while (!outp_rdy.read());
+
+		outp_vld.write(0);
 
 		//out_sld.write(temp);
 		wait(); //czeka na zegar

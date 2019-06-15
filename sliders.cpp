@@ -6,11 +6,11 @@ void sliders::sliders_main(void)
 {
 	//Initialize handshake
 	inp_rdy.write(0);
-	outp_vld.write(0);
+
 	in_sp_rdy.write(0);
 
-	//Resetowanie wyjscia
-	outp.write(0);
+
+
 	wait(); //czeka na sygnal zegara
 
 	while (true) {
@@ -43,16 +43,7 @@ void sliders::sliders_main(void)
 
 				in_sp_rdy.write(0);
 
-		//przekazanie informacji ze modul ma nowe dane do wyslania
-		outp_vld.write(1);
-		
-		outp.write(temp); // zapisanie wartosci na wyjscie
 
-		do {
-			wait(); //czeka na zegar
-		} while (!outp_rdy.read());
-
-		outp_vld.write(0);
 	}
 
 }

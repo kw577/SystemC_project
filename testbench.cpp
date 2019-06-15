@@ -83,7 +83,7 @@ void testbench::sink() {
 
 		//zapisanie wynikow
 		fprintf(outfp, "\t\t\t\tZakonczono program id: %d\n", (int)indata);
-		cout << "\t\t\t\tZakonczono program id: " << (int)indata << endl;
+		cout << "\t\t\t\t\tZakonczono program id: " << (int)indata << endl;
 
 
 	}
