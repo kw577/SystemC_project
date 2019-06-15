@@ -3,6 +3,7 @@
 #include "testbench.h"
 #include "processor.h"
 #include "display.h"
+#include "processorSt.h"
 
 SC_MODULE(SYSTEM) {
 
@@ -10,6 +11,7 @@ SC_MODULE(SYSTEM) {
 	testbench *tb0;
 	sliders* sliders0;
 	processor* processor1;
+	processorSt* processor2;
 	display* display1;
 
 	//deklaracje sygnalow miedzy tb0 i sliders
@@ -33,6 +35,12 @@ SC_MODULE(SYSTEM) {
 	sc_signal< sc_int<8> >      in_dp_signal;
 	sc_signal<bool>				in_dp_rdy_signal;  //handshaking signal
 	sc_signal<bool>				in_dp_vld_signal;  //handshaking signal
+
+	//deklaracje sygnalow miedzy processor1 i display
+	sc_signal< sc_int<8> >      in_pp_signal;
+	sc_signal<bool>				in_pp_rdy_signal;  //handshaking signal
+	sc_signal<bool>				in_pp_vld_signal;  //handshaking signal
+
 
 	//ZEGAR SYSTEMOWY
 	sc_clock clk_sig;
@@ -96,6 +104,11 @@ SC_MODULE(SYSTEM) {
 		processor1->in_dp_rdy(in_dp_rdy_signal); //handshaking signal
 		processor1->in_dp_vld(in_dp_vld_signal); //handshaking signal
 
+		//komunikacja processor1 - processor2
+		processor1->in_pp(in_pp_signal);
+		processor1->in_pp_rdy(in_pp_rdy_signal); //handshaking signal
+		processor1->in_pp_vld(in_pp_vld_signal); //handshaking signal
+
 		//////////////////////////////////////
 		//deklaracja instancji modulu
 		display1 = new display("display1");
@@ -110,6 +123,21 @@ SC_MODULE(SYSTEM) {
 		display1->in_dp_rdy(in_dp_rdy_signal); //handshaking signal
 		display1->in_dp_vld(in_dp_vld_signal); //handshaking signal
 
+
+		//////////////////////////////////////
+		//deklaracja instancji modulu
+		processor2 = new processorSt("processor2");
+		
+		//polaczenie modulu z zegarem
+		processor2->clk(clk_sig);
+
+		//polaczenie modulu z sygnalami
+		processor2->rst(rst_sig);
+		processor2->in_pp(in_pp_signal);
+	
+		processor2->in_pp_rdy(in_pp_rdy_signal); //handshaking signal
+		processor2->in_pp_vld(in_pp_vld_signal); //handshaking signal
+
 	}
 
 	//Destruktor - nie jest wymagany
@@ -118,6 +146,7 @@ SC_MODULE(SYSTEM) {
 		delete sliders0;
 		delete processor1;
 		delete display1;
+		delete processor2;
 	}
 
 

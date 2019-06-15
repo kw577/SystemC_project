@@ -82,8 +82,8 @@ void testbench::sink() {
 		//wait();
 
 		//zapisanie wynikow
-		fprintf(outfp, "sliders: uruchomiono program id: %d\n", (int)indata);
-		cout << "sliders: uruchomiono program id: " << (int)indata << endl;
+		fprintf(outfp, "\t\t\t\tZakonczono program id: %d\n", (int)indata);
+		cout << "\t\t\t\tZakonczono program id: " << (int)indata << endl;
 
 
 	}

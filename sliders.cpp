@@ -27,6 +27,8 @@ void sliders::sliders_main(void)
 		//odczytywanie wartosci z portu in
 		temp = inp.read();
 
+		cout << "sliders: Program id: " << (int)temp << endl;
+
 		//handshake - na razie modul ie moze przyjac nowych danych
 		inp_rdy.write(0);
 				

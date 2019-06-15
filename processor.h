@@ -14,6 +14,13 @@ SC_MODULE(processor) {
 
 	//do komunikacji z wyswietlaczem
 	sc_out< sc_int<8> >		in_dp; 
+
+	//do komunikacji z procesorem2
+	sc_out< sc_int<8> >		in_pp; 
+	sc_in<bool> in_pp_vld;
+	sc_out<bool> in_pp_rdy;
+
+
 	//handshaking with processor
 	sc_in<bool> in_dp_vld;
 	sc_out<bool> in_dp_rdy;
