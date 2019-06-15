@@ -4,6 +4,8 @@
 #include "processor.h"
 #include "display.h"
 #include "processorSt.h"
+#include "washer.h"
+
 
 SC_MODULE(SYSTEM) {
 
@@ -13,6 +15,7 @@ SC_MODULE(SYSTEM) {
 	processor* processor1;
 	processorSt* processor2;
 	display* display1;
+	washer* washer1;
 
 	//deklaracje sygnalow miedzy tb0 i sliders
 	sc_signal<bool> rst_sig;
@@ -36,10 +39,15 @@ SC_MODULE(SYSTEM) {
 	sc_signal<bool>				in_dp_rdy_signal;  //handshaking signal
 	sc_signal<bool>				in_dp_vld_signal;  //handshaking signal
 
-	//deklaracje sygnalow miedzy processor1 i display
+	//deklaracje sygnalow miedzy processor1 i processor2
 	sc_signal< sc_int<8> >      in_pp_signal;
 	sc_signal<bool>				in_pp_rdy_signal;  //handshaking signal
 	sc_signal<bool>				in_pp_vld_signal;  //handshaking signal
+
+	//deklaracje sygnalow miedzy processor2 i washer
+	sc_signal< sc_int<8> >      in_wp_signal;
+	sc_signal<bool>				in_wp_rdy_signal;  //handshaking signal
+	sc_signal<bool>				in_wp_vld_signal;  //handshaking signal
 
 
 	//ZEGAR SYSTEMOWY
@@ -138,6 +146,25 @@ SC_MODULE(SYSTEM) {
 		processor2->in_pp_rdy(in_pp_rdy_signal); //handshaking signal
 		processor2->in_pp_vld(in_pp_vld_signal); //handshaking signal
 
+		//komunikacja processor2 - pralka
+		processor2->in_wp(in_wp_signal);
+		processor2->in_wp_rdy(in_wp_rdy_signal); //handshaking signal
+		processor2->in_wp_vld(in_wp_vld_signal); //handshaking signal
+
+
+		//////////////////////////////////////
+		//deklaracja instancji modulu
+		washer1 = new washer("washer1");
+		
+		//polaczenie modulu z zegarem
+		washer1->clk(clk_sig);
+
+		//polaczenie modulu z sygnalami
+		washer1->rst(rst_sig);
+		washer1->in_wp(in_wp_signal);
+	
+		washer1->in_wp_rdy(in_wp_rdy_signal); //handshaking signal
+		washer1->in_wp_vld(in_wp_vld_signal); //handshaking signal
 	}
 
 	//Destruktor - nie jest wymagany
@@ -147,6 +174,7 @@ SC_MODULE(SYSTEM) {
 		delete processor1;
 		delete display1;
 		delete processor2;
+		delete washer1;
 	}
 
 
