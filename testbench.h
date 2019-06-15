@@ -23,7 +23,7 @@ SC_MODULE(testbench)
 	void source();
 
 	//Funkcja odbierajaca wartosci z modulu sliders
-	void sink();
+	//void sink();
 
 
 	FILE* outfp;
@@ -34,7 +34,7 @@ SC_MODULE(testbench)
 		//procesy
 		SC_CTHREAD(source, clk.pos()); // wyslanie sygnalow do modulu sliders
 
-		SC_CTHREAD(sink, clk.pos()); // odbior sygnalow z modulu sliders
+		//SC_CTHREAD(sink, clk.pos()); // odbior sygnalow z modulu sliders
 
 
 	}
