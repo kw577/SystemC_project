@@ -40,7 +40,7 @@ void processorSt::processorSt_main(void)
 		//odczytanie wartosci z portu
 		temp = in_pp.read();
 
-		cout << "\t\t\tprocessor2: Program id: " << (int)temp << endl;
+		cout << "\t\t\tProcessor2: Program id: " << (int)temp << endl;
 
 		in_pp_vld.write(0);
 		wait(50000);

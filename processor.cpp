@@ -36,7 +36,7 @@ void processor::processor_main(void)
 		//odczytanie wartosci z portu
 		temp = in_sp.read();
 		
-		cout << "\tprocessor: uruchomiono program id: " << (int)temp << endl;
+		cout << "\tProcessor1: uruchomiono program id: " << (int)temp << endl;
 
 		//na razie modul nie moze przyjac nowych danych
 		in_sp_vld.write(0);
@@ -53,6 +53,8 @@ void processor::processor_main(void)
 			in_dp_rdy.write(0);
 
 
+
+			if(temp >= 0 && temp < 5){
 			//przekazanie info  do processora2 ze modul ma nowe dane do wyslania
 			in_pp_rdy.write(1);
 
@@ -91,7 +93,7 @@ void processor::processor_main(void)
 
 			in_dp_rdy.write(0);
 
-
+			}
 
 
 		//przekazanie informacji ze modul ma nowe dane do wyslania

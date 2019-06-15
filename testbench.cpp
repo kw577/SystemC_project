@@ -21,6 +21,11 @@ void testbench::source() {
 		
 		//numer programu pralki
 		tmp = i;
+
+		//sprawdzenie obslugi bledow - pralka ma zaprogramowane tylko 5 prgramow (id: 0 - 4)
+		if(i == 2) tmp = 8; 
+
+
 		//if(tmp == 0) tmp=1;
 
 		inp_vld.write(1);
